@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration 
+	PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+	"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+	<generatorConfiguration>
+		<!--数据库驱动-->
+		<classPathEntry    location="ojdbc14.jar"/>
+
+		<context id="DB2Tables"    targetRuntime="MyBatis3">
+			<commentGenerator>
+				<!-- 阻止生成注释(注释没卵用)，默认 false -->
+				<property name="suppressDate" value="true"/> 	
+				<!-- 阻止生成的注释包含时间戳  默认 false  -->	
+				<property name="suppressAllComments" value="true"/>  
+			</commentGenerator>
+
+			<!--数据库链接地址账号密码-->
+			<jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@192.168.0.36:1521:orcl" userId="wjs" password="wsjsz209811"></jdbcConnection>
+
+			<!-- 用来指定JDBC类型和JAVA类型如何转换  -->
+			<javaTypeResolver>
+				<property name="forceBigDecimals" value="false"/>
+			</javaTypeResolver>
+
+			<!--生成Model类存放位置-->
+			<javaModelGenerator targetPackage="model" targetProject="src">
+				<!-- constructorBased为true，会使用构造方法入参也有setter方法; 为false时有setter方法而不用构造入参。默认false
+				     和下面的immutable有点相似  -->
+				<property name="constructorBased" value="false"/>
+
+				<!-- immutable为true时会使用构造方法入参而不会生成setter方法; 为false时会生成setter方法而不加带参构造  -->
+				<!-- <property name="immutable" value="false" /> -->
+
+				<!-- enableSubPackages和生成子包有关系 默认false  -->
+				<property name="enableSubPackages" value="true"/>
+				
+				<!-- 是否对数据库执行trim操作，如果设置为true就会生成类似这样
+				     public void setUsername(String username) {this.username = username == null ? null : username.trim();}的setter方法。默认值为false  -->
+				<property name="trimStrings" value="false"/>
+			</javaModelGenerator>
+
+			<!--生成映射文件存放位置-->
+			<sqlMapGenerator targetPackage="model.mapper" targetProject="src">
+				<property name="enableSubPackages" value="true"/>
+			</sqlMapGenerator>
+
+			<!--生成Dao类存放位置  -->
+			<javaClientGenerator type="XMLMAPPER" targetPackage="dao" targetProject="src">
+				<property name="enableSubPackages" value="true"/>
+			</javaClientGenerator>
+
+
+			<!--生成对应表及类名-->  
+			<!--  tableName指定要生成的表名，可以用sql通配符匹配多个  比如：tableName="%" -生成所有的表(作死) -->
+			<!--  domainObjectName：生成实体类的名称 -->
+			<table tableName="t_d1_o210102" domainObjectName="TD1O210102" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
+				<!-- 用于处理insert语句的主键，这里我用的是oracle的guid  -->
+				<generatedKey column="OBJID" sqlStatement="select sys_guid() from dual"/>
+				<!--  奇葩！generatedKey必须放在table最上面 -->
+				<!-- 处理一些奇怪的数据库类型比如NAVRCHAR2，NUMBER(9，2)...  (可以有多条)-->
+				<!-- column为数据库列名，javaType为需要转成的实体类属性类型,jdbcType为数据库列类型 这里的属性和mapper里面有关系 -->
+				<!-- <columnOverride column="PERSON_AGE" jdbcType="number" javaType="java.lang.Integer"/> -->
+			</table>
+		</context>
+	</generatorConfiguration>
+
+	<!-- 所有配置完之后，单击文件主目录，按住shift右键选择'在此处执行命令窗口'，然后执行     
+		java -jar mybatis-generator-core-1.3.5.jar -configfile generatorConfig.xml -overwrite   
+	（注意jar包版本）
+	仓库地址  http://repo1.maven.org/maven2/org/mybatis/generator/mybatis-generator-core/
+	-->
