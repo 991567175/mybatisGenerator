@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.TD1O210102Mapper">
+  <resultMap id="BaseResultMap" type="model.TD1O210102">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="OBJID" jdbcType="VARCHAR" property="objid" />
+    <result column="EQUIPMENT_NAME" jdbcType="VARCHAR" property="equipmentName" />
+    <result column="BRAND_NUMBER" jdbcType="VARCHAR" property="brandNumber" />
+    <result column="MODEL_NUMBER" jdbcType="VARCHAR" property="modelNumber" />
+    <result column="MAIN_USER" jdbcType="VARCHAR" property="mainUser" />
+    <result column="BUY_DATE" jdbcType="DATE" property="buyDate" />
+    <result column="RUNNING_STATE" jdbcType="VARCHAR" property="runningState" />
+    <result column="VERIFIED_PERSON" jdbcType="VARCHAR" property="verifiedPerson" />
+    <result column="CREATE_DATE" jdbcType="DATE" property="createDate" />
+    <result column="CREATE_PERSON" jdbcType="VARCHAR" property="createPerson" />
+    <result column="MODIFY_DATE" jdbcType="DATE" property="modifyDate" />
+    <result column="MODIFY_PERSON" jdbcType="VARCHAR" property="modifyPerson" />
+    <result column="REMOVED" jdbcType="CHAR" property="removed" />
+  </resultMap>
+  <insert id="insert" parameterType="model.TD1O210102">
+    <selectKey keyProperty="objid" order="BEFORE" resultType="java.lang.String">
+      select sys_guid() from dual
+    </selectKey>
+    insert into T_D1_O210102 (ID, OBJID, EQUIPMENT_NAME, 
+      BRAND_NUMBER, MODEL_NUMBER, MAIN_USER, 
+      BUY_DATE, RUNNING_STATE, VERIFIED_PERSON, 
+      CREATE_DATE, CREATE_PERSON, MODIFY_DATE, 
+      MODIFY_PERSON, REMOVED)
+    values (#{id,jdbcType=VARCHAR}, #{objid,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR}, 
+      #{brandNumber,jdbcType=VARCHAR}, #{modelNumber,jdbcType=VARCHAR}, #{mainUser,jdbcType=VARCHAR}, 
+      #{buyDate,jdbcType=DATE}, #{runningState,jdbcType=VARCHAR}, #{verifiedPerson,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=DATE}, #{createPerson,jdbcType=VARCHAR}, #{modifyDate,jdbcType=DATE}, 
+      #{modifyPerson,jdbcType=VARCHAR}, #{removed,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.TD1O210102">
+    <selectKey keyProperty="objid" order="BEFORE" resultType="java.lang.String">
+      select sys_guid() from dual
+    </selectKey>
+    insert into T_D1_O210102
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      OBJID,
+      <if test="equipmentName != null">
+        EQUIPMENT_NAME,
+      </if>
+      <if test="brandNumber != null">
+        BRAND_NUMBER,
+      </if>
+      <if test="modelNumber != null">
+        MODEL_NUMBER,
+      </if>
+      <if test="mainUser != null">
+        MAIN_USER,
+      </if>
+      <if test="buyDate != null">
+        BUY_DATE,
+      </if>
+      <if test="runningState != null">
+        RUNNING_STATE,
+      </if>
+      <if test="verifiedPerson != null">
+        VERIFIED_PERSON,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="createPerson != null">
+        CREATE_PERSON,
+      </if>
+      <if test="modifyDate != null">
+        MODIFY_DATE,
+      </if>
+      <if test="modifyPerson != null">
+        MODIFY_PERSON,
+      </if>
+      <if test="removed != null">
+        REMOVED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      #{objid,jdbcType=VARCHAR},
+      <if test="equipmentName != null">
+        #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandNumber != null">
+        #{brandNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="modelNumber != null">
+        #{modelNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="mainUser != null">
+        #{mainUser,jdbcType=VARCHAR},
+      </if>
+      <if test="buyDate != null">
+        #{buyDate,jdbcType=DATE},
+      </if>
+      <if test="runningState != null">
+        #{runningState,jdbcType=VARCHAR},
+      </if>
+      <if test="verifiedPerson != null">
+        #{verifiedPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="createPerson != null">
+        #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=DATE},
+      </if>
+      <if test="modifyPerson != null">
+        #{modifyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null">
+        #{removed,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
